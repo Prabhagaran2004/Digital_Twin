@@ -1,14 +1,25 @@
-# LazAI Digital Twin 🤖
+# Cache Kutty - Digital Twin 💪🏏
 
-A TypeScript-based digital twin application that simulates conversations with ourself, a passionate web3 developer and community builder. This interactive chatbot uses the Alith library to create an AI-powered conversational experience based on our personality, achievements, and communication style.
+An interactive AI-powered digital twin application featuring **Cache Kutty** (Prabhagaran's digital persona) - a fitness enthusiast, cricket player, and Full Stack Web3 developer from Chennai. This application combines a modern React frontend with an AI-powered backend to create engaging conversations.
 
 ## 🚀 Features
 
-- **Interactive Chat Interface**: Terminal-based conversation with our digital twin
-- **Personality-Driven Responses**: AI responses based on our character data, achievements, and communication style
-- **Web3 Focus**: Specialized knowledge in blockchain, DeFi, hackathons, and web3 development
-- **TypeScript Support**: Full TypeScript implementation with proper type definitions
-- **Character Customization**: Easy to modify personality traits and responses via `character.json`
+### Frontend (React UI)
+- **Modern Chat Interface**: Beautiful, responsive chat panel with real-time messaging
+- **Profile Dashboard**: Display stats, XP progress, and personal information
+- **Dark Mode**: Pre-configured dark theme for comfortable viewing
+- **Gamification System**: Earn XP for interactions and track progress
+- **Quick Actions**: Pre-defined buttons for common queries (Workout tips, Cricket drills, etc.)
+- **Emoji Reactions**: Interactive reactions on messages
+- **Smooth Animations**: Framer Motion powered transitions and effects
+- **Compact Design**: Everything fits on one screen without scrolling
+
+### Backend (Express API)
+- **AI-Powered Responses**: Groq API (llama-3.3-70b) for intelligent conversations
+- **Character-Based Personality**: Responses based on Prabhagaran's profile and interests
+- **RESTful API**: Clean API endpoints for chat, profile, and history
+- **Session Management**: Conversation history tracking
+- **CORS Enabled**: Frontend-backend communication ready
 
 ## 📋 Prerequisites
 
@@ -16,162 +27,289 @@ Before running this project, make sure you have:
 
 - **Node.js** (version 18 or higher)
 - **npm** (comes with Node.js)
-- **OpenAI API Key** (for the Alith library)
+- **Groq API Key** (free at https://console.groq.com)
+- **Two terminals** (one for backend, one for frontend)
 
 ## 🛠️ Installation
 
-1. **Clone or download this repository**
-   ```bash
-   git clone https://github.com/0xLazAI/Digital-Twin-Starter-kit
-   cd Digital-Twin-Starter-kit
-   ```
+### 1. Clone the Repository
+```bash
+git clone https://github.com/Prabhagaran2004/Digital_Twin.git
+cd Digital-Twin-Starter-kit
+```
 
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
+### 2. Install Backend Dependencies
+```bash
+npm install
+```
 
-3. **Set up your OpenAI API Key**
-   ```bash
-   export OPENAI_API_KEY="your-openai-api-key-here"
-   ```
-   
-   Or add it to your shell profile (`.bashrc`, `.zshrc`, etc.):
-   ```bash
-   echo 'export OPENAI_API_KEY="your-openai-api-key-here"' >> ~/.zshrc
-   source ~/.zshrc
-   ```
+### 3. Install Frontend Dependencies
+```bash
+cd frontend
+npm install
+cd ..
+```
+
+### 4. Set up Environment Variables
+Create a `.env` file in the root directory:
+```bash
+GROQ_API_KEY=your_groq_api_key_here
+```
+
+Get your free Groq API key from: https://console.groq.com
 
 ## 🏃‍♂️ Running the Application
 
-### Development Mode (Recommended)
+You need to run **TWO separate terminals** simultaneously:
+
+### Terminal 1 - Backend Server (Port 3001)
 ```bash
+# From the root directory
+npm run server
+```
+
+You should see:
+```
+🚀 Digital Twin API Server Started! 🚀
+📡 Server running on: http://localhost:3001
+💬 Ready to chat with your Digital Twin!
+```
+
+### Terminal 2 - Frontend UI (Port 3000)
+```bash
+# Open a NEW terminal
+cd frontend
 npm run dev
 ```
-This command will:
-1. Compile TypeScript to JavaScript
-2. Run the application
 
-### Production Mode
-```bash
-npm run build
-npm start
+You should see:
+```
+VITE v5.4.20  ready in 697 ms
+➡️  Local:   http://localhost:3000/
 ```
 
-### Manual Compilation
-```bash
-npm run build
-node index.js
-```
+### Access the Application
+Open your browser and go to: **http://localhost:3000**
 
-## 🎯 Usage
+## 🎯 How to Use
 
-1. **Start the application** using one of the methods above
-2. **Wait for the welcome message** - you'll see Thiru.eth's introduction
-3. **Type your message** and press Enter to chat
-4. **Type "exit"** to end the conversation
+1. **Open the Application**: Navigate to http://localhost:3000 in your browser
+2. **Start Chatting**: Type your message in the input box at the bottom
+3. **Use Quick Actions**: Click pre-defined buttons for instant queries:
+   - Workout tip 💪
+   - Cricket tip 🏏
+   - Fun fact 😎
+   - Music recommendation 🎵
+   - Motivation boost 🔥
+4. **Earn XP**: Gain experience points for:
+   - Sending messages (+10 XP)
+   - Receiving responses (+5 XP)
+   - Adding reactions (+2 XP)
+5. **React to Messages**: Click emoji reactions on Cache Kutty's messages
 
-### Example Conversation
-```
-🤖 Thiru.eth Digital Twin Activated! 🤖
+### Example Conversations
+**You**: How do I get stronger?
+**Cache Kutty**: Vaaya Thambi! 💪 Start slow, focus on form, and make it fun! Mix strength, cardio, and flexibility. What's your current routine like? 🏋️🏏
 
-==================================================
-👋 Hey! I'm Thiru.eth, your web3 digital twin!
-💬 Let's chat about web3, hackathons, or anything!
-📝 Type "exit" to end the conversation
-==================================================
-
-You: How do I get started in web3?
-Thiru.eth: Hey! Welcome to the web3 space! 🚀 I'd recommend starting with understanding the basics of blockchain, then diving into smart contracts. I started my journey at hackathons - they're amazing for learning! What's your background? 💪
-
-You: exit
-👋 Thanks for chatting! Keep building in web3! 🚀
-```
+**You**: Tell me about cricket bowling
+**Cache Kutty**: Bowling drills all the way! ⚡ As a right-arm fast bowler, hitting batsmen's nerves is way more fun than just stumps 😎💥
 
 ## 📁 Project Structure
 
 ```
-ws/
-├── index.ts              # Main application file
-├── character.json        # Character data and personality traits
-├── package.json          # Project dependencies and scripts
-├── tsconfig.json         # TypeScript configuration
-├── index.js              # Compiled JavaScript (generated)
-├── index.d.ts            # TypeScript declarations (generated)
-├── index.js.map          # Source map (generated)
-└── README.md             # This file
+Digital-Twin-Starter-kit/
+├── frontend/                    # React Frontend
+│   ├── src/
+│   │   ├── components/
+│   │   │   ├── ChatPanel.jsx      # Main chat interface
+│   │   │   ├── ProfilePanel.jsx   # Profile and stats
+│   │   │   ├── Avatar.jsx         # Animated avatar
+│   │   │   └── QuickActions.jsx   # Floating action buttons
+│   │   ├── App.jsx                # Main app component
+│   │   ├── main.jsx               # Entry point
+│   │   ├── index.css              # Global styles
+│   │   └── config.js              # Configuration
+│   ├── package.json
+│   └── vite.config.js
+├── server.js                   # Express API server
+├── index.js                    # CLI version (optional)
+├── character.json              # Prabhagaran's personality data
+├── package.json                # Backend dependencies
+├── .env                        # Environment variables
+└── README.md                   # This file
 ```
 
 ## ⚙️ Configuration
 
 ### Character Customization
-Edit `character.json` to modify Thiru.eth's personality:
+Edit `character.json` to customize Cache Kutty's personality:
 
-- **bio**: Background information
-- **lore**: Key achievements and facts
-- **adjectives**: Personality traits
-- **topics**: Areas of expertise
-- **style**: Communication preferences
-- **messageExamples**: Sample conversations
-- **postExamples**: Sample social media posts
+```json
+{
+  "name": "Prabhagaran",
+  "bio": ["Final year student...", "Cricket player..."],
+  "lore": ["Fast bowler inspired by Dale Steyn", ...],
+  "adjectives": ["Energetic", "Funny", "Motivational"],
+  "topics": ["Workout", "Cricket", "Web3", "90's music"],
+  "style": {
+    "all": [...],
+    "chat": ["Use emojis generously", "Casual language"],
+    "post": [...]
+  }
+}
+```
 
-### TypeScript Configuration
-The project uses a modern TypeScript configuration in `tsconfig.json` with:
-- ES modules support
-- Strict type checking
-- Source maps for debugging
-- Declaration files generation
+### Frontend Customization
+Edit `frontend/src/config.js` to modify colors, stats, and settings:
+- Theme colors (neon blue, green, yellow, pink)
+- Stats values
+- Quick action buttons
+- Avatar settings
 
 ## 🔧 Available Scripts
 
-- `npm run build` - Compile TypeScript to JavaScript
-- `npm start` - Run the compiled JavaScript
-- `npm run dev` - Build and run in one command
-- `npm test` - Run tests (placeholder)
+### Backend Scripts
+- `npm run server` - Start Express API server (port 3001)
+- `npm run dev` - Run CLI version (terminal chat)
+- `npm run build` - Compile TypeScript
+- `npm start` - Run compiled code
+
+### Frontend Scripts
+- `npm run dev` - Start Vite dev server (port 3000)
+- `npm run build` - Build for production
+- `npm run preview` - Preview production build
 
 ## 🐛 Troubleshooting
 
-### Common Issues
+### Backend Issues
 
-1. **"Cannot find module 'alith'"**
+1. **"Missing GROQ_API_KEY"**
+   - Make sure you have a `.env` file in the root directory
+   - Add: `GROQ_API_KEY=your_key_here`
+   - Get your key from: https://console.groq.com
+
+2. **"Port 3001 already in use"**
+   - Change port in `server.js` (line 10): `const PORT = 3002;`
+   - Update frontend `ChatPanel.jsx` (line 8): `const API_URL = 'http://localhost:3002'`
+
+3. **"Cannot find module 'express'"**
    ```bash
    npm install
    ```
 
-2. **"Error: Failed to get response. Make sure you have set your API key"**
+### Frontend Issues
+
+1. **"Network Error" or "Backend not connecting"**
+   - Make sure backend is running on port 3001
+   - Check backend terminal for errors
+   - Try accessing http://localhost:3001/health in browser
+
+2. **"White screen" or "Blank page"**
    ```bash
-   export OPENAI_API_KEY="your-api-key"
+   cd frontend
+   rm -rf node_modules package-lock.json
+   npm install
+   npm run dev
    ```
 
-3. **TypeScript compilation errors**
+3. **"Axios not found"**
    ```bash
-   npm run build
-   # Check the error messages and fix any type issues
+   cd frontend
+   npm install axios
    ```
 
-4. **Permission denied errors**
-   ```bash
-   chmod +x index.js
-   ```
+4. **Chat scrolling the whole page**
+   - Already fixed in the code
+   - Make sure you pulled the latest version
 
-## 📚 Dependencies
+## 📚 Tech Stack
 
-### Production Dependencies
-- **alith**: AI conversation library for creating digital twins
+### Backend
+- **Node.js & Express**: API server
+- **Alith**: AI conversation framework
+- **Groq API**: llama-3.3-70b-versatile model
+- **CORS**: Cross-origin support
+- **dotenv**: Environment variables
 
-### Development Dependencies
-- **typescript**: TypeScript compiler
-- **@types/node**: Node.js type definitions
-- **@types/json-schema**: JSON Schema type definitions
+### Frontend
+- **React 18**: UI framework
+- **Vite**: Build tool & dev server
+- **TailwindCSS**: Utility-first styling
+- **Framer Motion**: Smooth animations
+- **Axios**: HTTP client
+- **Lucide React**: Icon library
 
-## 🤝 Contributing
+### Key Features
+- Real-time AI responses
+- Responsive design
+- Session management
+- XP gamification system
+- Emoji reactions
+- Dark mode optimized
 
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Test thoroughly
-5. Submit a pull request
+## 🔗 API Endpoints
+
+The backend server provides these REST endpoints:
+
+### `GET /health`
+Health check for the API
+```json
+{ "status": "ok", "message": "Digital Twin API is running!" }
+```
+
+### `POST /chat`
+Send a message to Cache Kutty
+```json
+{
+  "message": "How do I get stronger?",
+  "sessionId": "optional-session-id"
+}
+```
+
+Response:
+```json
+{
+  "success": true,
+  "message": "Vaaya Thambi! 💪 Start slow...",
+  "sessionId": "user-session-123",
+  "timestamp": "2025-10-19T..."
+}
+```
+
+### `GET /history/:sessionId`
+Get conversation history for a session
+
+### `DELETE /history/:sessionId`
+Clear conversation history
+
+### `GET /profile`
+Get Cache Kutty's profile information
+
+## 🎉 Features Showcase
+
+- ✅ **Compact UI**: Everything visible on one screen
+- ✅ **Internal Scrolling**: Chat scrolls inside container, page stays fixed
+- ✅ **Light Mode Ready**: Proper text colors and contrast
+- ✅ **Responsive**: Works on desktop, tablet, and mobile
+- ✅ **Real AI**: Powered by Groq's llama-3.3-70b model
+- ✅ **Gamified**: XP system with level progression
+- ✅ **Personalized**: Based on Prabhagaran's real personality
+
+## 👨‍💻 Author
+
+**Prabhagaran** (Cache Kutty)
+- Final Year Student from Chennai
+- Full Stack Web3 Developer
+- Fast Bowler (Cricket)
+- Fitness Enthusiast
+- 90's Music Lover
+
+GitHub: [@Prabhagaran2004](https://github.com/Prabhagaran2004)
 
 ## 📄 License
 
-ISC License - see package.json for details
+ISC License - Open source and free to use
+
+---
+
+**Made with ❤️ by Prabhagaran**

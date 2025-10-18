@@ -92,7 +92,7 @@ const conversationSessions = new Map();
 
 // Health check
 app.get('/health', (req, res) => {
-    res.json({ status: 'ok', message: 'Digital Twin API is running!' });
+    res.json({ status: 'ok', message: 'Cache Kutty API is running!' });
 });
 
 // Chat endpoint
@@ -183,7 +183,7 @@ app.get('/profile', (req, res) => {
 
 // Start server
 app.listen(PORT, () => {
-    console.log('\n🚀 Digital Twin API Server Started! 🚀\n');
+    console.log('\n🚀 Cache Kutty API Server Started! 🚀\n');
     console.log('='.repeat(50));
     console.log(`📡 Server running on: http://localhost:${PORT}`);
     console.log(`🔗 API Endpoints:`);
@@ -193,11 +193,11 @@ app.listen(PORT, () => {
     console.log(`   DELETE /history/:id     - Clear conversation`);
     console.log(`   GET  /profile           - Get twin's profile`);
     console.log('='.repeat(50));
-    console.log('💬 Ready to chat with your Digital Twin!\n');
+    console.log('💬 Ready to chat with your Cache Kutty!\n');
 });
 
 // Handle graceful shutdown
 process.on('SIGINT', () => {
-    console.log('\n👋 Shutting down Digital Twin API server...');
+    console.log('\n👋 Shutting down Cache Kutty API server...');
     process.exit(0);
 });

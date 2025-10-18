@@ -48,7 +48,7 @@ const ChatPanel = ({ addXP, unlockAchievement, darkMode }) => {
     {
       id: 1,
       sender: 'twin',
-      text: "Enna pullaaa! 💪 Welcome to your Digital Twin! I'm here to talk fitness, cricket, music, and all things fun! What's on your mind today? 😎🏏",
+      text: "Enna pullaaa! 💪 Welcome to Cache Kutty! I'm here to talk fitness, cricket, music, and all things fun! What's on your mind today? 😎🏏",
       timestamp: new Date()
     }
   ])
