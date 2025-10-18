@@ -44,7 +44,7 @@ function App() {
             <div className="text-2xl">💪</div>
             <div>
               <h1 className="text-lg font-bold text-neon-blue">
-                Digital Twin
+                Cache Kutty
               </h1>
               <p className="text-xs text-gray-400">Your AI Fitness & Cricket Buddy</p>
             </div>
@@ -60,14 +60,14 @@ function App() {
             </motion.div>
 
             {/* Dark Mode Toggle */}
-            <motion.button
+            {/* <motion.button
               whileHover={{ scale: 1.1, rotate: 180 }}
               whileTap={{ scale: 0.9 }}
               onClick={() => setDarkMode(!darkMode)}
               className="glass-effect p-2 rounded-full hover:neon-glow transition-all"
             >
               {darkMode ? <Sun className="text-neon-yellow" size={20} /> : <Moon className="text-blue-600" size={20} />}
-            </motion.button>
+            </motion.button> */}
           </div>
         </div>
       </motion.header>

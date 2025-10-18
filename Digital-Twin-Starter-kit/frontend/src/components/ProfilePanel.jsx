@@ -26,7 +26,7 @@ const ProfilePanel = ({ userXP, achievements, darkMode }) => {
           </div>
           <div className="flex-1">
             <h2 className="text-base font-bold text-neon-blue">
-              Your Digital Twin
+              Cache Kutty
             </h2>
             <div className="flex gap-1 mt-1">
               <span className="text-xs">🏏</span>
@@ -110,7 +110,7 @@ const ProfilePanel = ({ userXP, achievements, darkMode }) => {
           </li>
           <li className="flex items-start gap-1">
             <span>💻</span>
-            <span>MERN stack developer</span>
+            <span>Full Stack Web3 developer</span>
           </li>
         </ul>
       </motion.div>

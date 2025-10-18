@@ -147,7 +147,7 @@ const ChatPanel = ({ addXP, unlockAchievement, darkMode }) => {
           <Avatar isActive={isTyping} size="small" />
           <div className="flex-1">
             <h2 className="text-lg font-bold text-neon-blue">
-              Your Digital Twin
+              Cache Kutty
             </h2>
             <p className={`text-xs ${darkMode ? 'text-gray-400' : 'text-gray-600'} flex items-center gap-2`}>
               <span className="w-2 h-2 bg-neon-green rounded-full animate-pulse"></span>
@@ -195,7 +195,7 @@ const ChatPanel = ({ addXP, unlockAchievement, darkMode }) => {
                 <motion.div
                   className={`p-3 rounded-xl ${
                     message.sender === 'user'
-                      ? 'bg-neon-blue text-white'
+                      ? 'bg-neon-blue text-black'
                       : darkMode
                       ? 'bg-gray-700 text-white'
                       : 'bg-gray-100 text-gray-900'
