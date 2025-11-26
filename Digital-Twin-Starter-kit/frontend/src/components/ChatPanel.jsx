@@ -1,11 +1,11 @@
-import { useState, useRef, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { Send, Smile, Heart, ThumbsUp, Zap } from 'lucide-react'
-import axios from 'axios'
-import Avatar from './Avatar'
+import { useState, useRef, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Send, Smile, Heart, ThumbsUp, Zap } from "lucide-react";
+import axios from "axios";
+import Avatar from "./Avatar";
 
-// Backend API configuration
-const API_URL = 'http://localhost:3001'
+// Backend API configuration (use Vite dev proxy -> /api)
+const API_URL = "/api";
 
 const quickQuestions = [
   { text: "Workout tip 💪", category: "fitness" },
@@ -13,127 +13,128 @@ const quickQuestions = [
   { text: "Fun fact 😎", category: "fun" },
   { text: "Music recommendation 🎵", category: "music" },
   { text: "Motivation boost 🔥", category: "motivation" },
-]
+];
 
 const twinResponses = {
   fitness: [
     "Vaaya Thambi! 💪 Start slow, focus on form, and make it fun! Mix strength, cardio, and flexibility. What's your current routine like? 🏋️🏏",
     "Gotta go with biceps curls! 💪 That pump feeling is unbeatable. I mix it with cricket sprints to keep everything balanced! 🏋️🏏😂",
-    "After an intense session, I stretch, hydrate, maybe a few batting swings 🏋️🏏 Recovery is as important as the workout!"
+    "After an intense session, I stretch, hydrate, maybe a few batting swings 🏋️🏏 Recovery is as important as the workout!",
   ],
   cricket: [
     "Bowling drills all the way! ⚡ As a right-arm fast bowler, hitting batsmen's nerves is way more fun than just stumps 😎💥",
     "Fitness = everything! 💪 I do sprints, core workouts, and strength training to stay explosive on the field 🏋️🏏😂",
-    "Focus on speed, rhythm, and accuracy ⚡ Mix explosive leg workouts with bowling drills. Dale Steyn vibes help a ton!"
+    "Focus on speed, rhythm, and accuracy ⚡ Mix explosive leg workouts with bowling drills. Dale Steyn vibes help a ton!",
   ],
   fun: [
     "Did you know Dale Steyn's fastest delivery was 156.3 km/h? I'm working on matching that speed... in my dreams! 😂⚡",
     "Laughed through my workout today! Who said training can't be fun? 💪🏏",
-    "My biceps are so pumped, they have their own fan club! 😎💪 Just kidding, but the gains are real!"
+    "My biceps are so pumped, they have their own fan club! 😎💪 Just kidding, but the gains are real!",
   ],
   music: [
     "SPB's voice is pure magic! 🎵 90's music hits different when you're grinding at the gym 💪",
     "Nothing beats working out to classic 90's Tamil songs! SPB's voice = instant motivation boost 🎵🔥",
-    "Currently vibing to SPB classics while planning my next cricket match! 🎵🏏"
+    "Currently vibing to SPB classics while planning my next cricket match! 🎵🏏",
   ],
   motivation: [
     "Remember Dei Thambi, small steps every day lead to HUGE gains! 💪 Keep pushing, you got this! 🔥",
     "Feeling unstoppable? That's the spirit! 💥 Channel that energy into your next workout or cricket session! 🏋️🏏",
-    "Every rep counts, every ball matters! 💪🏏 Stay consistent and the results will blow your mind! ⚡"
-  ]
-}
+    "Every rep counts, every ball matters! 💪🏏 Stay consistent and the results will blow your mind! ⚡",
+  ],
+};
 
 const ChatPanel = ({ addXP, unlockAchievement, darkMode }) => {
   const [messages, setMessages] = useState([
     {
       id: 1,
-      sender: 'twin',
+      sender: "twin",
       text: "Enna pullaaa! 💪 Welcome to Cache Kutty! I'm here to talk fitness, cricket, music, and all things fun! What's on your mind today? 😎🏏",
-      timestamp: new Date()
-    }
-  ])
-  const [inputValue, setInputValue] = useState('')
-  const [isTyping, setIsTyping] = useState(false)
-  const messagesEndRef = useRef(null)
-  const [selectedReaction, setSelectedReaction] = useState(null)
+      timestamp: new Date(),
+    },
+  ]);
+  const [inputValue, setInputValue] = useState("");
+  const [isTyping, setIsTyping] = useState(false);
+  const messagesEndRef = useRef(null);
+  const [selectedReaction, setSelectedReaction] = useState(null);
 
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
-  }
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
 
   useEffect(() => {
-    scrollToBottom()
-  }, [messages])
+    scrollToBottom();
+  }, [messages]);
 
   const handleSendMessage = async (text = inputValue, isQuick = false) => {
-    if (!text.trim()) return
+    if (!text.trim()) return;
 
     // Add user message
     const userMessage = {
       id: Date.now(),
-      sender: 'user',
+      sender: "user",
       text: text,
-      timestamp: new Date()
-    }
-    setMessages(prev => [...prev, userMessage])
-    setInputValue('')
+      timestamp: new Date(),
+    };
+    setMessages((prev) => [...prev, userMessage]);
+    setInputValue("");
 
     // Add XP for interaction
-    addXP(10)
+    addXP(10);
 
     // Show typing indicator
-    setIsTyping(true)
+    setIsTyping(true);
 
     try {
       // Call backend API
       const response = await axios.post(`${API_URL}/chat`, {
         message: text,
-        sessionId: 'user-session-' + Date.now() // You can use a persistent session ID
-      })
+        sessionId: "user-session-" + Date.now(), // You can use a persistent session ID
+      });
 
       // Add twin's response
       const twinMessage = {
         id: Date.now() + 1,
-        sender: 'twin',
+        sender: "twin",
         text: response.data.message,
-        timestamp: new Date()
-      }
-      setMessages(prev => [...prev, twinMessage])
-      setIsTyping(false)
+        timestamp: new Date(),
+      };
+      setMessages((prev) => [...prev, twinMessage]);
+      setIsTyping(false);
 
       // Add more XP for getting response
-      addXP(5)
-
+      addXP(5);
     } catch (error) {
-      console.error('Error calling backend:', error)
-      
+      console.error("Error calling backend:", error);
+
       // Fallback to simulated response if backend is down
-      let fallbackResponse
+      let fallbackResponse;
       if (isQuick) {
-        const category = quickQuestions.find(q => q.text === text)?.category
-        const responses = twinResponses[category] || twinResponses.fun
-        fallbackResponse = responses[Math.floor(Math.random() * responses.length)]
+        const category = quickQuestions.find((q) => q.text === text)?.category;
+        const responses = twinResponses[category] || twinResponses.fun;
+        fallbackResponse =
+          responses[Math.floor(Math.random() * responses.length)];
       } else {
-        fallbackResponse = "Oops! 😅 Seems like I'm having connection issues. Make sure the backend server is running! Try: npm run server"
+        fallbackResponse =
+          "Oops! 😅 Seems like I'm having connection issues. Make sure the backend server is running! Try: npm run server";
       }
 
       const twinMessage = {
         id: Date.now() + 1,
-        sender: 'twin',
+        sender: "twin",
         text: fallbackResponse,
-        timestamp: new Date()
-      }
-      setMessages(prev => [...prev, twinMessage])
-      setIsTyping(false)
-      addXP(5)
+        timestamp: new Date(),
+      };
+      setMessages((prev) => [...prev, twinMessage]);
+      setIsTyping(false);
+      addXP(5);
     }
-  }
+  };
 
   const handleReaction = (messageId, reaction) => {
-    setSelectedReaction(messageId)
-    addXP(2)
-    setTimeout(() => setSelectedReaction(null), 1000)
-  }
+    setSelectedReaction(messageId);
+    addXP(2);
+    setTimeout(() => setSelectedReaction(null), 1000);
+  };
 
   return (
     <motion.div
@@ -146,10 +147,12 @@ const ChatPanel = ({ addXP, unlockAchievement, darkMode }) => {
         <div className="flex items-center gap-3">
           <Avatar isActive={isTyping} size="small" />
           <div className="flex-1">
-            <h2 className="text-lg font-bold text-neon-blue">
-              Cache Kutty
-            </h2>
-            <p className={`text-xs ${darkMode ? 'text-gray-400' : 'text-gray-600'} flex items-center gap-2`}>
+            <h2 className="text-lg font-bold text-neon-blue">Cache Kutty</h2>
+            <p
+              className={`text-xs ${
+                darkMode ? "text-gray-400" : "text-gray-600"
+              } flex items-center gap-2`}
+            >
               <span className="w-2 h-2 bg-neon-green rounded-full animate-pulse"></span>
               Online
             </p>
@@ -183,41 +186,49 @@ const ChatPanel = ({ addXP, unlockAchievement, darkMode }) => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
-              className={`flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'} gap-3`}
+              className={`flex ${
+                message.sender === "user" ? "justify-end" : "justify-start"
+              } gap-3`}
             >
-              {message.sender === 'twin' && (
+              {message.sender === "twin" && (
                 <div className="flex-shrink-0">
                   <Avatar size="small" />
                 </div>
               )}
-              
-              <div className={`max-w-[70%] ${message.sender === 'user' ? 'order-1' : ''}`}>
+
+              <div
+                className={`max-w-[70%] ${
+                  message.sender === "user" ? "order-1" : ""
+                }`}
+              >
                 <motion.div
                   className={`p-3 rounded-xl ${
-                    message.sender === 'user'
-                      ? 'bg-neon-blue text-black'
+                    message.sender === "user"
+                      ? "bg-neon-blue text-black"
                       : darkMode
-                      ? 'bg-gray-700 text-white'
-                      : 'bg-gray-100 text-gray-900'
+                      ? "bg-gray-700 text-white"
+                      : "bg-gray-100 text-gray-900"
                   } shadow-md`}
                 >
                   <p className="text-sm leading-relaxed">{message.text}</p>
                 </motion.div>
-                
+
                 {/* Reaction Buttons */}
-                {message.sender === 'twin' && (
+                {message.sender === "twin" && (
                   <div className="flex gap-1 mt-1 ml-2">
                     {[
-                      { icon: Heart, color: 'text-red-400' },
-                      { icon: ThumbsUp, color: 'text-blue-400' },
-                      { icon: Smile, color: 'text-yellow-400' },
-                      { icon: Zap, color: 'text-neon-green' }
+                      { icon: Heart, color: "text-red-400" },
+                      { icon: ThumbsUp, color: "text-blue-400" },
+                      { icon: Smile, color: "text-yellow-400" },
+                      { icon: Zap, color: "text-neon-green" },
                     ].map((reaction, idx) => (
                       <motion.button
                         key={idx}
                         whileHover={{ scale: 1.2 }}
                         whileTap={{ scale: 0.9 }}
-                        onClick={() => handleReaction(message.id, reaction.icon)}
+                        onClick={() =>
+                          handleReaction(message.id, reaction.icon)
+                        }
                         className={`p-1 rounded-full hover:bg-white/10 ${reaction.color} transition-all`}
                       >
                         <reaction.icon size={14} />
@@ -238,7 +249,11 @@ const ChatPanel = ({ addXP, unlockAchievement, darkMode }) => {
             className="flex items-center gap-2"
           >
             <Avatar size="small" />
-            <div className={`${darkMode ? 'bg-gray-700' : 'bg-gray-100'} rounded-xl px-4 py-2`}>
+            <div
+              className={`${
+                darkMode ? "bg-gray-700" : "bg-gray-100"
+              } rounded-xl px-4 py-2`}
+            >
               <div className="flex gap-1">
                 <motion.div
                   animate={{ y: [0, -5, 0] }}
@@ -259,7 +274,7 @@ const ChatPanel = ({ addXP, unlockAchievement, darkMode }) => {
             </div>
           </motion.div>
         )}
-        
+
         <div ref={messagesEndRef} />
       </div>
 
@@ -270,10 +285,12 @@ const ChatPanel = ({ addXP, unlockAchievement, darkMode }) => {
             type="text"
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
-            onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
+            onKeyPress={(e) => e.key === "Enter" && handleSendMessage()}
             placeholder="Type your message... 💪"
             className={`flex-1 ${
-              darkMode ? 'bg-gray-700/50 text-white placeholder-gray-400' : 'bg-gray-100 text-gray-900 placeholder-gray-500'
+              darkMode
+                ? "bg-gray-700/50 text-white placeholder-gray-400"
+                : "bg-gray-100 text-gray-900 placeholder-gray-500"
             } rounded-full px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-neon-blue transition-all`}
           />
           <motion.button
@@ -287,7 +304,7 @@ const ChatPanel = ({ addXP, unlockAchievement, darkMode }) => {
         </div>
       </div>
     </motion.div>
-  )
-}
+  );
+};
 
-export default ChatPanel
+export default ChatPanel;
