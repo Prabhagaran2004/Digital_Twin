@@ -5,7 +5,10 @@ import axios from "axios";
 import Avatar from "./Avatar";
 
 // Backend API configuration (use Vite dev proxy -> /api)
-const API_URL = "/api";
+// Backend API configuration
+const API_URL = import.meta.env.PROD
+  ? "https://digital-twin-2.onrender.com"
+  : "/api";
 
 const quickQuestions = [
   { text: "Workout tip 💪", category: "fitness" },
